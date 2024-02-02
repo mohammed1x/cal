@@ -20,8 +20,25 @@ while true; do
     # Read the expression with command history support
     read -e -p "Enter the expression: " expression
 
-    # Perform the calculation and remove line breakers and slashes
-    result=$(echo "scale=${scale};${expression}" | bc -l -w | tr -d '\n\\')
+    # Function to calculate LCM
+    lcm() {
+        echo "scale=${scale}; num1 = $1; num2 = $2; lcm = num1 * num2 / gcd(num1, num2); lcm" | bc -l -w
+    }
+
+    # Function to calculate HCF
+    hcf() {
+        echo "scale=${scale}; num1 = $1; num2 = $2; while(num2) { temp = num2; num2 = num1 % num2; num1 = temp } num1" | bc -l -w
+    }
+
+    # Check if the expression is LCM or HCF
+    if [[ $expression == *"lcm("* ]]; then
+        result=$(lcm ${expression//[^0-9]/ })
+    elif [[ $expression == *"hcf("* ]]; then
+        result=$(hcf ${expression//[^0-9]/ })
+    else
+        # Perform the calculation for basic arithmetic operations
+        result=$(echo "scale=${scale};${expression}" | bc -l -w | tr -d '\n\\')
+    fi
 
     # Display the result in green color
     echo -e "\033[32mResult: ${result}\033[0m"
