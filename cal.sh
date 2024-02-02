@@ -4,7 +4,7 @@ while true; do
     echo "---------------------------------------------"
     echo "                   M0h4mm3d                   "
     echo "---------------------------------------------"
-    read -p "Enter scale (def=30): " scale
+    read -p "Enter the scale (default=30, q to quit): " scale
 
     # Check if the user wants to quit
     if [ "$scale" == "q" ]; then
@@ -20,8 +20,8 @@ while true; do
     # Perform the calculation and remove line breakers and slashes
     result=$(echo "scale=${scale};${expression}" | bc -l -w | tr -d '\n\\')
 
-    # Display the result
-    echo "Result: ${result}"
+    # Display the result in green color
+    echo -e "\033[32mResult: ${result}\033[0m"
 
     # Clear the result variable for the next iteration
     unset result
