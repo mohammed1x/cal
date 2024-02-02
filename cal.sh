@@ -6,7 +6,7 @@ while true; do
     echo "---------------------------------------------"
 
     # Read the scale with command history support
-    read -e -p "Enter the scale (default=30, q to quit): " scale
+    read -e -p "scale: " scale
 
     # Check if the user wants to quit
     if [ "$scale" == "q" ]; then
