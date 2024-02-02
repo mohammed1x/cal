@@ -4,7 +4,7 @@ while true; do
     echo "---------------------------------------------"
     echo "                   M0h4mm3d                   "
     echo "---------------------------------------------"
-    read -p "Enter the scale (default=30, q to quit): " scale
+    read -p "scale (default=30, q to quit): " scale
 
     # Check if the user wants to quit
     if [ "$scale" == "q" ]; then
