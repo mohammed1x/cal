@@ -1,12 +1,17 @@
 #!/bin/bash
 
+# Function to calculate GCD
+gcd() {
+    echo "scale=0; num1 = $1; num2 = $2; while(num2) { temp = num2; num2 = num1 % num2; num1 = temp } num1" | bc -l -w
+}
+
 while true; do
     echo "---------------------------------------------"
     echo "                   M0h4mm3d                   "
     echo "---------------------------------------------"
 
     # Read the scale with command history support
-    read -e -p "scale:" scale
+    read -e -p "scale: " scale
 
     # Check if the user wants to quit
     if [ "$scale" == "q" ]; then
@@ -22,12 +27,15 @@ while true; do
 
     # Function to calculate LCM
     lcm() {
-        echo "scale=${scale}; num1 = $1; num2 = $2; lcm = num1 * num2 / gcd(num1, num2); lcm" | bc -l -w
+        local num1=$1
+        local num2=$2
+        local gcd_value=$(gcd $num1 $num2)
+        echo "scale=${scale}; num1 = $num1; num2 = $num2; lcm = num1 * num2 / $gcd_value; lcm" | bc -l -w
     }
 
     # Function to calculate HCF
     hcf() {
-        echo "scale=${scale}; num1 = $1; num2 = $2; while(num2) { temp = num2; num2 = num1 % num2; num1 = temp } num1" | bc -l -w
+        echo "scale=${scale}; num1 = $1; num2 = $2; gcd(num1, num2)" | bc -l -w
     }
 
     # Check if the expression is LCM or HCF
