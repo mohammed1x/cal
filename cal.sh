@@ -4,7 +4,9 @@ while true; do
     echo "---------------------------------------------"
     echo "                   M0h4mm3d                   "
     echo "---------------------------------------------"
-    read -p "scale (def=30): " scale
+
+    # Read the scale with command history support
+    read -e -p "Enter the scale (default=30, q to quit): " scale
 
     # Check if the user wants to quit
     if [ "$scale" == "q" ]; then
@@ -15,7 +17,8 @@ while true; do
     # Set default scale if user input is empty
     scale="${scale:-30}"
 
-    read -p "Enter the expression: " expression
+    # Read the expression with command history support
+    read -e -p "Enter the expression: " expression
 
     # Perform the calculation and remove line breakers and slashes
     result=$(echo "scale=${scale};${expression}" | bc -l -w | tr -d '\n\\')
